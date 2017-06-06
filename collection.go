@@ -586,8 +586,8 @@ func (c *Collection) SetCap(size int64, bysize int64) error {
 	}
 }
 
-func (c *Collection) CreateHash(unique bool, fields ...string) error {
-	hashindex := map[string]interface{}{"type": "hash", "unique": unique, "fields": fields}
+func (c *Collection) CreateHash(unique, sparse bool, fields ...string) error {
+	hashindex := map[string]interface{}{"type": "hash", "unique": unique, "sparse": sparse, "fields": fields}
 
 	res, err := c.db.send("index?collection="+c.Name, "", "POST", &hashindex, nil, nil)
 	if err != nil {
@@ -604,8 +604,8 @@ func (c *Collection) CreateHash(unique bool, fields ...string) error {
 	}
 }
 
-func (c *Collection) CreateSkipList(unique bool, fields ...string) error {
-	skiplist := map[string]interface{}{"type": "skiplist", "unique": unique, "fields": fields}
+func (c *Collection) CreateSkipList(unique, sparse bool, fields ...string) error {
+	skiplist := map[string]interface{}{"type": "skiplist", "unique": unique, "sparse": sparse, "fields": fields}
 
 	res, err := c.db.send("index?collection="+c.Name, "", "POST", &skiplist, nil, nil)
 	if err != nil {
@@ -622,8 +622,8 @@ func (c *Collection) CreateSkipList(unique bool, fields ...string) error {
 	}
 }
 
-func (c *Collection) CreateGeoIndex(unique bool, geojson bool, fields ...string) error {
-	geoindex := map[string]interface{}{"type": "geo", "geoJson": geojson, "unique": unique, "fields": fields}
+func (c *Collection) CreateGeoIndex(unique, sparse bool, geojson bool, fields ...string) error {
+	geoindex := map[string]interface{}{"type": "geo", "geoJson": geojson, "unique": unique, "sparse": sparse, "fields": fields}
 
 	res, err := c.db.send("index?collection="+c.Name, "", "POST", &geoindex, nil, nil)
 	if err != nil {
